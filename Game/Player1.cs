@@ -12,14 +12,16 @@ namespace Game
     {
         public Player1(char player, char opponent)
         {
-            _player     = player;
-            _opponent   = opponent;
+            _player = player;
+            _opponent = opponent;
         }
 
         public override Tuple<int, int> playYourTurn(Board board, TimeSpan timesup)
         {
             Stopwatch timer = Stopwatch.StartNew();
-            Tuple<int, int> toReturn = null;
+            Tuple<int, int> toReturn = getBestPlay(3, ref board);
+
+            /*
             TimeSpan timespan;
             do
             {
@@ -39,7 +41,86 @@ namespace Game
             timespan = timer.Elapsed;
             } while (timespan.TotalMilliseconds < timesup.TotalMilliseconds);
             timer.Stop();
+            */
             return toReturn;
+        }
+
+        private Tuple<int, int> getBestPlay(int depth, ref Board board)
+        {
+            int score, max = int.MinValue;
+            Tuple<int, int> ans = null;
+            for (int i = 0; i < board._rows; i++)
+            {
+                for (int j = 0; j < board._cols; j++)
+                {
+                    if (board.checkIfCellIsEmpty(i, j))
+                    {
+                        Board temp = new Board(board);
+                        temp.fillPlayerMove(i, j, 'X');
+                        score = minMax(temp, depth-1, false);
+                        if (score > max)
+                        {
+                            ans = new Tuple<int, int>(i, j);
+                            max = score;
+                        }
+                    }
+                }
+            }
+            return ans;
+        }
+
+ 
+
+        private int minMax(Board childWithMax, int depth, bool needMax)
+        {
+
+            int bestValue, val;
+
+            if (depth == 0 || childWithMax.checkIfTheGameEnded() != ' ')
+                return Heuristic.getHeuristic(childWithMax);
+
+
+            if (needMax)
+                bestValue = int.MinValue + 1;
+            else
+                bestValue = int.MaxValue - 1;
+
+
+            foreach (Board child in GetChildren(childWithMax, needMax))
+            {
+                val = minMax(child, depth - 1, !needMax);
+
+                if (needMax)
+                    bestValue = Math.Max(bestValue, val);
+                else
+                    bestValue = Math.Min(bestValue, val);
+
+            }
+
+            return bestValue;
+        }
+
+        private IEnumerable<Board> GetChildren(Board father, bool needMax)
+        {
+            List<Board> ans = new List<Board>();
+            for (int i = 0; i < father._rows; i++)
+            {
+                for (int j = 0; j < father._cols; j++)
+                {
+                    if (father.checkIfCellIsEmpty(i, j))
+                    {
+                        Board temp = new Board(father);
+                        temp.fillPlayerMove(i, j, needMax ? 'X' : 'O');
+                        ans.Add(temp);
+                    }
+                }
+            }
+            return ans;
+        }
+
+        private void filRows(Board board)
+        {
+
         }
     }
 }
