@@ -10,28 +10,21 @@ namespace Game
 {
     public class Player1 : Player
     {
-        public Player1
-        (
-            char player, 
-            char opponent
-        )
+        public Player1(char player, char opponent)
         {
             _player     = player;
             _opponent   = opponent;
         }
-        public override Tuple<int, int> playYourTurn
-        (
-            Board board, 
-            TimeSpan timesup
-        )
+
+        public override Tuple<int, int> playYourTurn(Board board, TimeSpan timesup)
         {
             Stopwatch timer = Stopwatch.StartNew();
             Tuple<int, int> toReturn = null;
             TimeSpan timespan;
             do
             {
-
                 //Random Algorithm - Start
+				int test = Heuristic.getHeuristic(board, _player);
                 int randomRow;
                 int randomCol;
                 Random random = new Random();
