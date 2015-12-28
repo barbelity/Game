@@ -8,7 +8,7 @@ namespace Game
 {
     public static class Heuristic
 	{
-        public static List<List<Tuple<int, int>>> _allRows = new List<List<Tuple<int, int>>>();    
+   
         //returns the calculated heuristic for the board given
         public static int getHeuristic(Board board)
 		{
