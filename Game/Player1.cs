@@ -118,9 +118,5 @@ namespace Game
             return ans;
         }
 
-        private void filRows(Board board)
-        {
-
-        }
     }
 }

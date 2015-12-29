@@ -7,199 +7,202 @@ using System.Threading.Tasks;
 namespace Game
 {
     public static class Heuristic
-	{
-   
+    {
+
         //returns the calculated heuristic for the board given
         public static int getHeuristic(Board board)
-		{
+        {
+            int i, j;
             double ans = 0;
-            double inARow = 0;
-            char player = ' ',charAt;
+            double inARow;
+            char lastChar = ' ', currentChar;
             //rows
-            for (int i = 0; i < board._rows; i++)
+            for ( i = 0; i < board._rows; i++)
             {
-                for (int j = 0; j < board._cols; j++)
+                for ( j = 0; j < board._cols; j++)
                 {
-                    charAt = board._board[i, j];
-                    switch (charAt)
+                    inARow = 0;
+                    currentChar = board._board[i, j];
+                    if (lastChar == currentChar)
+                        inARow++;
+                    else
                     {
-                        case 'X':
-                            if (player == charAt)
-                            {
-                                inARow++;
+                        switch (lastChar)
+                        {
+                            case 'X':
                                 ans += Math.Pow(10, inARow);
-                            }
-                            else
-                            {
-                                ans += 1;
-                                inARow = 0;
-                                player = charAt;
-                            }
-
-                            break;
-                        case 'O':
-                            if (player == charAt)
-                            {
-                                inARow++;
+                                break;
+                            case 'O':
                                 ans -= Math.Pow(10, inARow);
-                            }
-                            else
-                            {
-                                ans -= 1;
-                                inARow = 0;
-                                player = charAt;
-                            }
-
-                            break;
-                        default:
-                            player = ' ';
-                            inARow = 0;
-                            break;
+                                break;
+                            default:
+                                currentChar = ' ';
+                                break;
+                        }
+                        inARow = 0;
+                        lastChar = currentChar;
                     }
+
                 }
             }
 
             inARow = 0;
-            player = ' ';
+            lastChar = ' ';
             //cols
-            for (int i = 0; i < board._cols; i++)
+            for ( i = 0; i < board._cols; i++)
             {
-                for (int j = 0; j < board._rows; j++)
+                for ( j = 0; j < board._rows; j++)
                 {
-                    charAt = board._board[i, j];
-                    switch (charAt)
+                    inARow = 0;
+                    currentChar = board._board[j, i];
+                    if (lastChar == currentChar)
+                        inARow++;
+                    else
                     {
-                        case 'X':
-                            if (player == charAt)
-                            {
-                                inARow++;
+                        switch (lastChar)
+                        {
+                            case 'X':
                                 ans += Math.Pow(10, inARow);
-                            }
-                            else
-                            {
-                                ans += 1;
-                                inARow = 0;
-                                player = charAt;
-                            }
-
-                            break;
-                        case 'O':
-                            if (player == charAt)
-                            {
-                                inARow++;
+                                break;
+                            case 'O':
                                 ans -= Math.Pow(10, inARow);
-                            }
-                            else
-                            {
-                                ans -= 1;
-                                inARow = 0;
-                                player = charAt;
-                            }
-
-                            break;
-                        default:
-                            player = ' ';
-                            inARow = 0;
-                            break;
+                                break;
+                            default:
+                                currentChar = ' ';
+                                break;
+                        }
+                        inARow = 0;
+                        lastChar = currentChar;
                     }
                 }
             }
 
+            int min = Math.Min(board._rows, board._cols);
             inARow = 0;
-            player = ' ';
+            lastChar = ' ';
             //x top to bot ->
-            for (int i = 0; i < board._cols; i++)
+            for ( i = 0; i < board._cols - board._target + 1; i++)
             {
-                int min = Math.Min(board._rows, board._cols);
-                for (int j = i; j+i < min; j++)
+                for ( j = 0; j < min; j++)
                 {
-                    charAt = board._board[j, j+i];
-                    switch (charAt)
+                    inARow = 0;
+                    currentChar = board._board[j, j + i];
+                    if (lastChar == currentChar)
+                        inARow++;
+                    else
                     {
-                        case 'X':
-                            if (player == charAt)
-                            {
-                                inARow++;
+                        switch (lastChar)
+                        {
+                            case 'X':
                                 ans += Math.Pow(10, inARow);
-                            }
-                            else
-                            {
-                                ans += 1;
-                                inARow = 0;
-                                player = charAt;
-                            }
-
-                            break;
-                        case 'O':
-                            if (player == charAt)
-                            {
-                                inARow++;
+                                break;
+                            case 'O':
                                 ans -= Math.Pow(10, inARow);
-                            }
-                            else
-                            {
-                                ans -= 1;
-                                inARow = 0;
-                                player = charAt;
-                            }
-
-                            break;
-                        default:
-                            player = ' ';
-                            inARow = 0;
-                            break;
+                                break;
+                            default:
+                                currentChar = ' ';
+                                break;
+                        }
+                        inARow = 0;
+                        lastChar = currentChar;
                     }
                 }
             }
 
             inARow = 0;
-            player = ' ';
+            lastChar = ' ';
             //x top to bot <-
-            for (int i = 0; i < board._cols; i++)
+            for ( i = 0; i < board._rows - board._target + 1; i++)
             {
-                int min = Math.Min(board._rows, board._cols);
-                for (int j = i; j+i < min; j++)
+                for ( j = 0; j < min; j++)
                 {
-                    charAt = board._board[j+1, j];
-                    switch (charAt)
+                    inARow = 0;
+                    currentChar = board._board[j + i, j];
+                    if (lastChar == currentChar)
+                        inARow++;
+                    else
                     {
-                        case 'X':
-                            if (player == charAt)
-                            {
-                                inARow++;
+                        switch (lastChar)
+                        {
+                            case 'X':
                                 ans += Math.Pow(10, inARow);
-                            }
-                            else
-                            {
-                                ans += 1;
-                                inARow = 0;
-                                player = charAt;
-                            }
-
-                            break;
-                        case 'O':
-                            if (player == charAt)
-                            {
-                                inARow++;
+                                break;
+                            case 'O':
                                 ans -= Math.Pow(10, inARow);
-                            }
-                            else
-                            {
-                                ans -= 1;
-                                inARow = 0;
-                                player = charAt;
-                            }
-
-                            break;
-                        default:
-                            player = ' ';
-                            inARow = 0;
-                            break;
+                                break;
+                            default:
+                                currentChar = ' ';
+                                break;
+                        }
+                        inARow = 0;
+                        lastChar = currentChar;
                     }
                 }
             }
-            
+
+            inARow = 0;
+            lastChar = ' ';
+            //x bot to top ->
+            for ( i = 0; i < board._cols - board._target + 1; i++)
+            {
+                for ( j = 0; j < min; j++)
+                {
+                    inARow = 0;
+                    currentChar = board._board[board._rows - j, i + j];
+                    if (lastChar == currentChar)
+                        inARow++;
+                    else
+                    {
+                        switch (lastChar)
+                        {
+                            case 'X':
+                                ans += Math.Pow(10, inARow);
+                                break;
+                            case 'O':
+                                ans -= Math.Pow(10, inARow);
+                                break;
+                            default:
+                                currentChar = ' ';
+                                break;
+                        }
+                        inARow = 0;
+                        lastChar = currentChar;
+                    }
+                }
+            }
+
+            inARow = 0;
+            lastChar = ' ';
+            //x bot to top <-
+            for ( i = 0; i < board._rows - board._target + 1; i++)
+            {
+                for ( j = i; j < min; j++)
+                {
+                    inARow = 0;
+                    currentChar = board._board[board._rows - j, i + j];
+                    if (lastChar == currentChar)
+                        inARow++;
+                    else
+                    {
+                        switch (lastChar)
+                        {
+                            case 'X':
+                                ans += Math.Pow(10, inARow);
+                                break;
+                            case 'O':
+                                ans -= Math.Pow(10, inARow);
+                                break;
+                            default:
+                                currentChar = ' ';
+                                break;
+                        }
+                        inARow = 0;
+                        lastChar = currentChar;
+                    }
+                }
+            }
+
             return Convert.ToInt32(ans);
-		}
-	}
+        }
+    }
 }
