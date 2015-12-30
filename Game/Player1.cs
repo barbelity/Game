@@ -73,38 +73,42 @@ namespace Game
 
         private int minMax(Board childWithMax, int depth, bool needMax, int alpha, int beta)
         {
-			//int bestValue;
-			int val = 0;
-
 			//stop condition
             if (depth == 0 || childWithMax.checkIfTheGameEnded() != ' ')
                 return Heuristic.getHeuristic(childWithMax);
 
+			int calcVal;
+			//initial value depends on needMax
+			int currVal = needMax ? alpha : beta;
+
             foreach (Board child in GetChildren(childWithMax, needMax))
             {
-                val = minMax(child, depth - 1, !needMax, alpha, beta);
+                calcVal = minMax(child, depth - 1, !needMax, alpha, beta);
+
+				//change value depends on needMax
+				currVal = needMax ? Math.Max(currVal, calcVal) : Math.Min(currVal, calcVal);
 
 				//update alpha-beta according to returned val
 				if (needMax) {
-					if (alpha < val)
-						alpha = val;
+					if (alpha < currVal)
+						alpha = currVal;
                 }
                 else
-					if (beta > val)
-						beta = val;
+					if (beta > currVal)
+						beta = currVal;
 
 				//perform prunning
-				if (needMax) { 
-					if (val >= beta)
+				if (needMax) {
+					if (currVal >= beta)
 						break;
                 }
                 else
-					if (val <= alpha)
+					if (currVal <= alpha)
 						break;
 
             }
 
-			return val;
+			return currVal;
         }
 
         private IEnumerable<Board> GetChildren(Board father, bool needMax)
