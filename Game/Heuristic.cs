@@ -77,13 +77,20 @@ namespace Game
                             case 'O':
                                 ans -= Math.Pow(10, inARow);
                                 break;
-                            default:
-                                //currentChar = ' ';
-                                break;
                         }
                         inARow = 0;
                         lastChar = currentChar;
                     }
+                    if (j == board._rows - 1)
+                        switch (lastChar)
+                        {
+                            case 'X':
+                                ans += Math.Pow(10, inARow);
+                                break;
+                            case 'O':
+                                ans -= Math.Pow(10, inARow);
+                                break;
+                        }
                 }
 
                 lastChar = ' ';
@@ -117,6 +124,16 @@ namespace Game
                         lastChar = currentChar;
                     }
                 }
+                switch (lastChar)
+                {
+                    case 'X':
+                        ans += Math.Pow(10, inARow);
+                        break;
+                    case 'O':
+                        ans -= Math.Pow(10, inARow);
+                        break;
+
+                }
             }
 
 
@@ -144,6 +161,16 @@ namespace Game
                         inARow = 0;
                         lastChar = currentChar;
                     }
+                }
+                switch (lastChar)
+                {
+                    case 'X':
+                        ans += Math.Pow(10, inARow);
+                        break;
+                    case 'O':
+                        ans -= Math.Pow(10, inARow);
+                        break;
+
                 }
             }
 
@@ -173,6 +200,16 @@ namespace Game
                         lastChar = currentChar;
                     }
                 }
+                switch (lastChar)
+                {
+                    case 'X':
+                        ans += Math.Pow(10, inARow);
+                        break;
+                    case 'O':
+                        ans -= Math.Pow(10, inARow);
+                        break;
+
+                }
             }
 
 
@@ -201,6 +238,16 @@ namespace Game
                         lastChar = currentChar;
 
                     }
+                }
+                switch (lastChar)
+                {
+                    case 'X':
+                        ans += Math.Pow(10, inARow);
+                        break;
+                    case 'O':
+                        ans -= Math.Pow(10, inARow);
+                        break;
+
                 }
             }
             /*
