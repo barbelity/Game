@@ -19,8 +19,8 @@ namespace Game
         public override Tuple<int, int> playYourTurn(Board board, TimeSpan timesup)
         {
             Stopwatch timer = Stopwatch.StartNew();
-            Tuple<int, int> toReturn = getBestPlay(1, ref board);
-
+            Tuple<int, int> toReturn = getBestPlay(3, ref board);
+            Console.Write(timer.ElapsedMilliseconds.ToString());
             /*
             TimeSpan timespan;
             do
@@ -85,20 +85,20 @@ namespace Game
                 val = minMax(child, depth - 1, !needMax, alpha, beta);
 
 				//update alpha-beta according to returned val
-				if (needMax)
+				if (needMax) {
 					if (alpha < val)
 						alpha = val;
-					else ;
-				else
+                }
+                else
 					if (beta > val)
 						beta = val;
 
 				//perform prunning
-				if (needMax)
+				if (needMax) { 
 					if (val >= beta)
 						break;
-					else ;
-				else
+                }
+                else
 					if (val <= alpha)
 						break;
 
@@ -125,5 +125,7 @@ namespace Game
             return ans;
         }
 
+
     }
+
 }
