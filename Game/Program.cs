@@ -22,7 +22,7 @@ namespace Game
         public const bool m_printAllResults   = true;
         static void Main(string[] args)
         {
-            char playerTurn         = 'O';
+			char playerTurn         = 'O';
             char winner             = ' ';
             Board board             = createEmptyBoard();
             int player1wins         = 0;
@@ -31,6 +31,14 @@ namespace Game
             for (int game = 0; game < m_numberOfGames; game++)
             {
                 board       = createEmptyBoard();
+				////////////////////////////////
+				////////////////////////////////
+				board.fillPlayerMove(1, 0, 'X');
+				board.fillPlayerMove(1, 2, 'X');
+				board.fillPlayerMove(0, 1, 'O');
+				board.fillPlayerMove(2, 2, 'O');
+				////////////////////////////////
+				////////////////////////////////
                 winner      = ' ';
                 switchPlayers(ref playerTurn);
                 do
@@ -94,10 +102,11 @@ namespace Game
         private static void Turn(Board board, Player player, char opponent, ref char winner, ref char playerTurn)
         {
             int stopMilliseconds;
-            if(opponent == 'O')
-                stopMilliseconds = 100;
-            else
-                stopMilliseconds = timeByLevel();
+			if (opponent == 'O')
+				//stopMilliseconds = 100;
+				stopMilliseconds = 10000;
+			else
+				stopMilliseconds = timeByLevel();
             TimeSpan timesup     = new TimeSpan(0, 0, 0, 0, stopMilliseconds);
             Stopwatch timer      = Stopwatch.StartNew();
             Tuple<int, int> move = player.playYourTurn(new Board(board), new TimeSpan(0, 0, 0, 0, stopMilliseconds));

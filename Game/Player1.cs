@@ -19,7 +19,7 @@ namespace Game
         public override Tuple<int, int> playYourTurn(Board board, TimeSpan timesup)
         {
             Stopwatch timer = Stopwatch.StartNew();
-            Tuple<int, int> toReturn = getBestPlay(4, ref board);
+            Tuple<int, int> toReturn = getBestPlay(1, ref board);
 
             /*
             TimeSpan timespan;
