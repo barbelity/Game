@@ -38,17 +38,16 @@ namespace Game
                         }
                         inARow = 0;
                         lastChar = currentChar;
-                    }
-                    if (j == board._cols - 1)
-                        switch (lastChar)
-                        {
-                            case 'X':
-                                ans += Math.Pow(10, inARow);
-                                break;
-                            case 'O':
-                                ans -= Math.Pow(10, inARow);
-                                break;
-                        }
+                    }   
+                }
+                switch (lastChar)
+                {
+                    case 'X':
+                        ans += Math.Pow(10, inARow);
+                        break;
+                    case 'O':
+                        ans -= Math.Pow(10, inARow);
+                        break;
                 }
                 inARow = 0;
                 lastChar = ' ';
@@ -80,20 +79,17 @@ namespace Game
                         }
                         inARow = 0;
                         lastChar = currentChar;
-                    }
-                    if (j == board._rows - 1)
-                        switch (lastChar)
-                        {
-                            case 'X':
-                                ans += Math.Pow(10, inARow);
-                                break;
-                            case 'O':
-                                ans -= Math.Pow(10, inARow);
-                                break;
-                        }
+                    }    
                 }
-
-                lastChar = ' ';
+                switch (lastChar)
+                {
+                    case 'X':
+                        ans += Math.Pow(10, inARow);
+                        break;
+                    case 'O':
+                        ans -= Math.Pow(10, inARow);
+                        break;
+                }
             }
 
             int min = Math.Min(board._rows, board._cols);
@@ -250,7 +246,7 @@ namespace Game
 
                 }
             }
-            /*
+            
             //get the center
             for (i = board._rows / 3; i < (board._rows / 3) * 2; i++)
             {
@@ -267,7 +263,7 @@ namespace Game
                             break;
                     }
                 }
-            } */
+            } 
             return Convert.ToInt32(ans);
         }
     }
