@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
-    <Compile Include="Heuristic.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Player1.cs" />
     <Compile Include="Program.cs" />

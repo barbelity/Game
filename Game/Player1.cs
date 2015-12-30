@@ -19,13 +19,22 @@ namespace Game
         public override Tuple<int, int> playYourTurn(Board board, TimeSpan timesup)
         {
             Tuple<int, int> toReturn = null;
-            if (board._cols * board._rows < 50)
+			int size = board._cols * board._rows;
+            if (size <= 20)
             {
-                toReturn = getBestPlay(3, ref board);
+                toReturn = getBestPlay(4, ref board);
             }
-            else if (board._cols * board._rows < 150)
+			else if (size < 42)
+			{
+				toReturn = getBestPlay(3, ref board);
+			}
+			else if (size < 100)
+			{
+				toReturn = getBestPlay(2, ref board);
+			}
+			else if (size < 150)
             {
-                toReturn = getBestPlay(2, ref board);
+                toReturn = getBestPlay(1, ref board);
             }
             else
             {
@@ -67,8 +76,6 @@ namespace Game
             }
             return ans;
         }
-
-
 
         private int minMax(Board childWithMax, int depth, bool needMax, int alpha, int beta)
         {
