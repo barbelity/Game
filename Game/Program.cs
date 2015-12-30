@@ -12,13 +12,13 @@ namespace Game
 {
     class Program
     {
-        public const int m_numberOfGames      = 10;
-        public const int m_boardRows          = 4;
-        public const int m_boardCols          = 5;
-        public const int m_targetSize         = 4;
-        public const int m_gameLevel          = 1;
+        public const int m_numberOfGames      = 1;
+        public const int m_boardRows          = 3;
+        public const int m_boardCols          = 3;
+        public const int m_targetSize         = 3;
+        public const int m_gameLevel          = 2;
         public const bool m_printTheGame      = true;
-        public const bool m_printResult       = false;
+        public const bool m_printResult       = true;
         public const bool m_printAllResults   = true;
         static void Main(string[] args)
         {
@@ -47,7 +47,8 @@ namespace Game
                         winner = board.checkIfTheGameEnded();
                     if (m_printTheGame)                                       //Watch the game
                     {
-                        Console.Clear();
+                        //Console.Clear();
+						System.Console.WriteLine();
                         board.printTheBoard();
                     }
                 } while (winner == ' ');
@@ -78,35 +79,19 @@ namespace Game
                 playerTurn = 'X';
         }
 
-        private static void printWinnerLine
-        (
-            int game, 
-            char winner, 
-            int counter
-        )
+        private static void printWinnerLine(int game, char winner, int counter)
         {
             Console.WriteLine("The winner of Game " + (game + 1) + " is: " + winner + " after " + counter + " moves");
             //Console.ReadLine();
         }
 
-        private static void printAllGamesResult
-        (
-            int player1wins, 
-            int player2wins
-        )
+        private static void printAllGamesResult(int player1wins, int player2wins)
         {
             Console.WriteLine("Player1 (X) wins:  " + player1wins + "\nPlayer2 (O) wins:  " + player2wins + "\nTies:              " + (m_numberOfGames - player1wins - player2wins));
             Console.ReadLine();
         }
 
-        private static void Turn
-        (
-            Board board, 
-            Player player, 
-            char opponent, 
-            ref char winner, 
-            ref char playerTurn
-        )
+        private static void Turn(Board board, Player player, char opponent, ref char winner, ref char playerTurn)
         {
             int stopMilliseconds;
             if(opponent == 'O')

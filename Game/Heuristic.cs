@@ -76,7 +76,7 @@ namespace Game
                     }
                 }
             }
-
+			
             int min = Math.Min(board._rows, board._cols);
             inARow = 0;
             lastChar = ' ';
@@ -170,7 +170,7 @@ namespace Game
                     }
                 }
             }
-
+			
             inARow = 0;
             lastChar = ' ';
             //x bot to top <-
@@ -201,7 +201,7 @@ namespace Game
                     }
                 }
             }
-
+			
             return Convert.ToInt32(ans);
         }
     }

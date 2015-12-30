@@ -19,7 +19,7 @@ namespace Game
         public override Tuple<int, int> playYourTurn(Board board, TimeSpan timesup)
         {
             Stopwatch timer = Stopwatch.StartNew();
-            Tuple<int, int> toReturn = getBestPlay(3, ref board);
+            Tuple<int, int> toReturn = getBestPlay(4, ref board);
 
             /*
             TimeSpan timespan;
@@ -57,7 +57,7 @@ namespace Game
                     {
                         Board temp = new Board(board);
                         temp.fillPlayerMove(i, j, 'X');
-                        score = minMax(temp, depth-1, false);
+						score = minMax(temp, depth - 1, false, int.MinValue + 1, int.MaxValue - 1);
                         if (score > max)
                         {
                             ans = new Tuple<int, int>(i, j);
@@ -71,33 +71,40 @@ namespace Game
 
  
 
-        private int minMax(Board childWithMax, int depth, bool needMax)
+        private int minMax(Board childWithMax, int depth, bool needMax, int alpha, int beta)
         {
+			//int bestValue;
+			int val = 0;
 
-            int bestValue, val;
-
+			//stop condition
             if (depth == 0 || childWithMax.checkIfTheGameEnded() != ' ')
                 return Heuristic.getHeuristic(childWithMax);
 
-
-            if (needMax)
-                bestValue = int.MinValue + 1;
-            else
-                bestValue = int.MaxValue - 1;
-
-
             foreach (Board child in GetChildren(childWithMax, needMax))
             {
-                val = minMax(child, depth - 1, !needMax);
+                val = minMax(child, depth - 1, !needMax, alpha, beta);
 
-                if (needMax)
-                    bestValue = Math.Max(bestValue, val);
-                else
-                    bestValue = Math.Min(bestValue, val);
+				//update alpha-beta according to returned val
+				if (needMax)
+					if (alpha < val)
+						alpha = val;
+					else ;
+				else
+					if (beta > val)
+						beta = val;
+
+				//perform prunning
+				if (needMax)
+					if (val >= beta)
+						break;
+					else ;
+				else
+					if (val <= alpha)
+						break;
 
             }
 
-            return bestValue;
+			return val;
         }
 
         private IEnumerable<Board> GetChildren(Board father, bool needMax)
